@@ -52,6 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				festival: {
+					DEFAULT: 'hsl(var(--festival))',
+					foreground: 'hsl(var(--festival-foreground))'
+				},
+				earth: {
+					DEFAULT: 'hsl(var(--earth))',
+					foreground: 'hsl(var(--earth-foreground))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +70,17 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-forest': 'var(--gradient-forest)',
+				'gradient-sunset': 'var(--gradient-sunset)',
+				'gradient-adventure': 'var(--gradient-adventure)'
+			},
+			boxShadow: {
+				'adventure': 'var(--shadow-adventure)',
+				'festival': 'var(--shadow-festival)',
+				'nature': 'var(--shadow-nature)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +103,51 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'slide-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(30px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'adventure-pulse': {
+					'0%, 100%': {
+						boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)'
+					},
+					'50%': {
+						boxShadow: '0 0 0 10px hsl(var(--primary) / 0)'
+					}
+				},
+				'festival-glow': {
+					'0%, 100%': {
+						textShadow: '0 0 5px hsl(var(--festival) / 0.5)'
+					},
+					'50%': {
+						textShadow: '0 0 20px hsl(var(--festival) / 0.8), 0 0 30px hsl(var(--festival) / 0.4)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.6s ease-out',
+				'slide-up': 'slide-up 0.8s ease-out',
+				'adventure-pulse': 'adventure-pulse 2s infinite',
+				'festival-glow': 'festival-glow 3s ease-in-out infinite'
 			}
 		}
 	},
