@@ -1,8 +1,12 @@
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Lightbox } from '@/components/ui/lightbox';
 import { Calendar, MapPin, Clock, Users } from 'lucide-react';
 
 const EventsSection = () => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentPosterIndex, setCurrentPosterIndex] = useState(0);
+
   const events = [
     {
       id: 1,
@@ -14,6 +18,7 @@ const EventsSection = () => {
       price: '$389',
       type: 'Camping',
       gradient: 'from-primary to-earth',
+      poster: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=600&fit=crop',
     },
     {
       id: 2,
@@ -25,6 +30,7 @@ const EventsSection = () => {
       price: '$459',
       type: 'Festival',
       gradient: 'from-festival to-accent',
+      poster: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&h=600&fit=crop',
     },
     {
       id: 3,
@@ -36,90 +42,116 @@ const EventsSection = () => {
       price: '$329',
       type: 'Getaway',
       gradient: 'from-accent to-primary',
+      poster: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
     },
   ];
 
+  const openPosterLightbox = (index: number) => {
+    setCurrentPosterIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  const nextPoster = () => {
+    setCurrentPosterIndex((prev) => (prev + 1) % events.length);
+  };
+
+  const prevPoster = () => {
+    setCurrentPosterIndex((prev) => (prev - 1 + events.length) % events.length);
+  };
+
   return (
-    <section id="events" className="py-20 bg-gradient-to-b from-secondary/30 to-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+    <section id="events" className="py-32 bg-gradient-cinematic">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
             Upcoming 
-            <span className="text-festival"> Events</span>
+            <span className="text-primary"> Events</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready for your next adventure? Check out our upcoming trips and secure your spot 
-            before they fill up!
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
+            Experience the extraordinary. Click any poster to explore the full details of our adventures.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {/* Poster Wall */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
           {events.map((event, index) => (
-            <Card 
+            <div
               key={event.id}
-              className="group hover:shadow-festival transition-all duration-500 hover:-translate-y-2 overflow-hidden border-0 bg-card"
+              className="group cursor-pointer transform hover:-translate-y-4 transition-all duration-700 hover:scale-105"
+              onClick={() => openPosterLightbox(index)}
               style={{
                 animationDelay: `${index * 0.2}s`
               }}
             >
-              <CardContent className="p-0">
-                {/* Event Header with Gradient */}
-                <div className={`relative p-6 bg-gradient-to-br ${event.gradient} text-white`}>
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
-                      {event.type}
-                    </span>
-                    <span className="text-2xl font-bold">{event.price}</span>
+              {/* Poster Frame */}
+              <div className="relative bg-card/20 backdrop-blur-sm p-4 rounded-3xl shadow-cinematic hover:shadow-golden border border-border/20">
+                <div className="relative overflow-hidden rounded-2xl aspect-[2/3] group-hover:shadow-2xl transition-shadow duration-500">
+                  <img
+                    src={event.poster}
+                    alt={`${event.title} poster`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  
+                  {/* Poster Overlay with Event Info */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <div className="flex justify-between items-start mb-3">
+                        <span className="px-3 py-1 bg-primary/30 backdrop-blur-sm rounded-full text-xs font-medium tracking-wide uppercase">
+                          {event.type}
+                        </span>
+                        <span className="text-xl font-bold text-primary bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
+                          {event.price}
+                        </span>
+                      </div>
+                      
+                      <h3 className="text-xl font-bold mb-3 leading-tight">
+                        {event.title}
+                      </h3>
+                      
+                      <div className="space-y-1 text-sm text-white/90">
+                        <div className="flex items-center">
+                          <Calendar className="w-3 h-3 mr-2 flex-shrink-0" />
+                          <span className="truncate">{event.date}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <MapPin className="w-3 h-3 mr-2 flex-shrink-0" />
+                          <span className="truncate">{event.location}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  
-                  <h3 className="text-2xl font-bold mb-2">
-                    {event.title}
-                  </h3>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center text-white/90">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      <span className="text-sm">{event.date}</span>
-                    </div>
-                    <div className="flex items-center text-white/90">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      <span className="text-sm">{event.location}</span>
-                    </div>
+
+                  {/* Click to View Indicator */}
+                  <div className="absolute top-4 right-4 bg-primary/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Click to View
                   </div>
                 </div>
-                
-                {/* Event Details */}
-                <div className="p-6">
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center text-muted-foreground">
-                      <Clock className="w-4 h-4 mr-2" />
-                      <span className="text-sm">{event.time}</span>
-                    </div>
-                    <div className="flex items-center text-muted-foreground">
-                      <Users className="w-4 h-4 mr-2" />
-                      <span className="text-sm">{event.spots}</span>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    variant="festival" 
-                    className="w-full group-hover:shadow-adventure"
-                  >
-                    Book Now
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
         
         {/* View All Events */}
         <div className="text-center">
-          <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            View All Events
-          </Button>
+          <button className="text-primary hover:text-primary/80 text-lg font-medium tracking-wide uppercase transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
+            View All Adventures
+          </button>
         </div>
       </div>
+
+      {/* Poster Lightbox */}
+      <Lightbox
+        images={events.map(event => event.poster)}
+        currentIndex={currentPosterIndex}
+        isOpen={lightboxOpen}
+        onClose={closeLightbox}
+        onNext={nextPoster}
+        onPrev={prevPoster}
+      />
     </section>
   );
 };

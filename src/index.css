@@ -8,61 +8,64 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Adventure Color Palette */
-    --background: 45 20% 97%;
-    --foreground: 140 25% 15%;
+    /* Cinematic Dark Palette */
+    --background: 220 15% 8%;
+    --foreground: 45 20% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 140 25% 15%;
+    --card: 220 15% 12%;
+    --card-foreground: 45 20% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 140 25% 15%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 45 20% 95%;
 
-    /* Forest Green Primary */
-    --primary: 140 45% 25%;
-    --primary-foreground: 45 20% 97%;
+    /* Golden Primary */
+    --primary: 45 85% 60%;
+    --primary-foreground: 220 15% 8%;
 
-    /* Sandy Secondary */
-    --secondary: 45 35% 85%;
-    --secondary-foreground: 140 25% 15%;
+    /* Dark Secondary */
+    --secondary: 220 10% 15%;
+    --secondary-foreground: 45 20% 90%;
 
-    --muted: 45 25% 92%;
-    --muted-foreground: 140 15% 45%;
+    --muted: 220 10% 18%;
+    --muted-foreground: 45 10% 65%;
 
     /* Adventure Blue Accent */
-    --accent: 205 85% 45%;
+    --accent: 205 85% 55%;
     --accent-foreground: 0 0% 100%;
 
     /* Festival Orange */
-    --festival: 25 95% 55%;
+    --festival: 25 95% 65%;
     --festival-foreground: 0 0% 100%;
 
-    /* Warm Brown */
-    --earth: 30 25% 35%;
+    /* Earth Brown */
+    --earth: 30 25% 45%;
     --earth-foreground: 45 20% 97%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 45 25% 88%;
-    --input: 45 25% 88%;
-    --ring: 140 45% 25%;
+    --border: 220 10% 20%;
+    --input: 220 10% 18%;
+    --ring: 45 85% 60%;
 
-    /* Adventure Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(140 45% 25%) 0%, hsl(205 85% 45%) 100%);
-    --gradient-forest: linear-gradient(180deg, hsl(140 55% 20%) 0%, hsl(140 35% 35%) 100%);
-    --gradient-sunset: linear-gradient(135deg, hsl(25 95% 55%) 0%, hsl(45 85% 60%) 100%);
-    --gradient-adventure: linear-gradient(45deg, hsl(205 85% 45%) 0%, hsl(140 45% 25%) 50%, hsl(25 95% 55%) 100%);
+    /* Cinematic Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(220 15% 15%) 100%);
+    --gradient-cinematic: linear-gradient(180deg, hsl(220 15% 5%) 0%, hsl(220 15% 12%) 100%);
+    --gradient-golden: linear-gradient(135deg, hsl(45 85% 60%) 0%, hsl(25 95% 65%) 100%);
+    --gradient-adventure: linear-gradient(45deg, hsl(205 85% 55%) 0%, hsl(45 85% 60%) 50%, hsl(25 95% 65%) 100%);
+    --gradient-overlay: linear-gradient(0deg, hsl(220 15% 8% / 0.8) 0%, hsl(220 15% 8% / 0.3) 50%, hsl(220 15% 8% / 0.7) 100%);
 
-    /* Adventure Shadows */
-    --shadow-adventure: 0 10px 40px -10px hsl(140 45% 25% / 0.3);
-    --shadow-festival: 0 8px 30px -8px hsl(25 95% 55% / 0.4);
-    --shadow-nature: 0 20px 60px -15px hsl(140 35% 35% / 0.2);
+    /* Premium Shadows */
+    --shadow-adventure: 0 25px 80px -15px hsl(220 15% 5% / 0.6);
+    --shadow-festival: 0 20px 60px -10px hsl(25 95% 65% / 0.3);
+    --shadow-cinematic: 0 30px 100px -20px hsl(220 15% 3% / 0.8);
+    --shadow-golden: 0 15px 50px -10px hsl(45 85% 60% / 0.4);
 
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Premium Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 45 20% 95%;
     --sidebar-foreground: 140 25% 15%;
@@ -75,48 +78,49 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 140 25% 8%;
-    --foreground: 45 20% 95%;
+    /* Lighter version for dark mode toggle if needed */
+    --background: 220 15% 12%;
+    --foreground: 45 20% 98%;
 
-    --card: 140 25% 10%;
-    --card-foreground: 45 20% 95%;
+    --card: 220 15% 15%;
+    --card-foreground: 45 20% 98%;
 
-    --popover: 140 25% 10%;
-    --popover-foreground: 45 20% 95%;
+    --popover: 220 15% 12%;
+    --popover-foreground: 45 20% 98%;
 
-    --primary: 140 45% 35%;
-    --primary-foreground: 45 20% 97%;
+    --primary: 45 90% 65%;
+    --primary-foreground: 220 15% 8%;
 
-    --secondary: 140 20% 15%;
+    --secondary: 220 10% 18%;
     --secondary-foreground: 45 20% 95%;
 
-    --muted: 140 20% 15%;
-    --muted-foreground: 45 15% 65%;
+    --muted: 220 10% 22%;
+    --muted-foreground: 45 10% 70%;
 
-    --accent: 205 85% 55%;
+    --accent: 205 85% 60%;
     --accent-foreground: 0 0% 100%;
 
-    --festival: 25 95% 65%;
+    --festival: 25 95% 70%;
     --festival-foreground: 0 0% 100%;
 
-    --earth: 30 25% 45%;
+    --earth: 30 25% 50%;
     --earth-foreground: 45 20% 97%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 140 20% 20%;
-    --input: 140 20% 20%;
-    --ring: 140 45% 35%;
+    --border: 220 10% 25%;
+    --input: 220 10% 22%;
+    --ring: 45 85% 60%;
 
-    --sidebar-background: 140 25% 5%;
+    --sidebar-background: 220 15% 5%;
     --sidebar-foreground: 45 20% 90%;
-    --sidebar-primary: 140 45% 35%;
-    --sidebar-primary-foreground: 45 20% 97%;
-    --sidebar-accent: 140 20% 12%;
+    --sidebar-primary: 45 85% 60%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 10% 15%;
     --sidebar-accent-foreground: 45 20% 90%;
-    --sidebar-border: 140 20% 12%;
-    --sidebar-ring: 140 45% 35%;
+    --sidebar-border: 220 10% 15%;
+    --sidebar-ring: 45 85% 60%;
   }
 }
 

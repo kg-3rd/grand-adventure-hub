@@ -18,7 +18,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-gradient-hero text-white hover:shadow-adventure transition-all duration-300 hover:scale-105 font-semibold",
+        hero: "bg-gradient-golden text-primary-foreground hover:shadow-golden transition-all duration-500 hover:scale-105 font-semibold backdrop-blur-sm",
         festival: "bg-festival text-festival-foreground hover:bg-festival/90 hover:shadow-festival transition-all duration-300 animate-adventure-pulse",
         adventure: "bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-nature transition-all duration-300",
         earth: "bg-earth text-earth-foreground hover:bg-earth/90 border border-earth/20",
