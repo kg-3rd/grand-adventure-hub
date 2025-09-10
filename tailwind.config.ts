@@ -75,7 +75,6 @@ export default {
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-cinematic': 'var(--gradient-cinematic)',
 				'gradient-golden': 'var(--gradient-golden)',
-				'gradient-adventure': 'var(--gradient-adventure)',
 				'gradient-overlay': 'var(--gradient-overlay)'
 			},
 			boxShadow: {

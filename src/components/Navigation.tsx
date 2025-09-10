@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import tghLogo from '@/assets/tgh_logo.png';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,10 +16,10 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
     { name: 'Events', href: '#events' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'Reviews', href: '#reviews' },
-    { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -33,11 +33,20 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className={`text-3xl font-bold transition-colors duration-300 ${
-              isScrolled ? 'text-primary' : 'text-white'
-            }`}>
-              Grand<span className="text-festival">Hiking</span>
-            </h1>
+            <a href="#home" aria-label="GrandHiking Home" className="inline-flex items-center gap-3">
+              <img
+                src={tghLogo}
+                alt="GrandHiking logo"
+                className="h-14 md:h-16 w-auto object-contain drop-shadow-md"
+              />
+              {/* <h1
+                className={`text-2xl md:text-3xl font-bold transition-colors duration-300 ${
+                  isScrolled ? 'text-primary' : 'text-white'
+                }`}
+              >
+                The Grand <span className="text-festival">Hiking</span>
+              </h1> */}
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -53,9 +62,6 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <Button variant="hero" size="lg" className="text-sm font-medium tracking-wide uppercase">
-              Book Now
-            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -85,11 +91,6 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
-              <div className="px-4 pt-2">
-                <Button variant="hero" size="lg" className="w-full text-sm font-medium tracking-wide uppercase">
-                  Book Now
-                </Button>
-              </div>
             </div>
           </div>
         )}

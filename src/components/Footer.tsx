@@ -1,15 +1,19 @@
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import tghLogo from '@/assets/tgh_logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t border-border/20 py-20">
+  <footer id="contact" className="bg-background border-t border-border/20 py-20">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="text-3xl font-bold text-primary mb-6">
-              Grand<span className="text-festival">Hiking</span>
-            </h3>
+            <a href="#home" aria-label="GrandHiking Home" className="inline-flex items-center gap-3 mb-6">
+              <img src={tghLogo} alt="GrandHiking logo" className="h-16 w-auto object-contain" />
+              {/* <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                Grand<span className="text-festival">Hiking</span>
+              </h3> */}
+            </a>
             <p className="text-muted-foreground mb-8 max-w-md text-lg font-light leading-relaxed">
               Creating unforgettable adventures through immersive experiences. 
               Join our community of explorers.
@@ -44,9 +48,9 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-6 text-lg tracking-wide uppercase">Contact</h4>
             <ul className="space-y-3 text-muted-foreground font-light">
-              <li>hello@grandhiking.com</li>
-              <li>(555) 123-4567</li>
-              <li>San Francisco, CA</li>
+              <li>email@thegrandhiking.com</li>
+              <li>(+27) 123-4567</li>
+              
             </ul>
           </div>
         </div>

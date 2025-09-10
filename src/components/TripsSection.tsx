@@ -4,13 +4,14 @@ import { ArrowRight, Tent, Mountain, Music } from 'lucide-react';
 import campingImage from '@/assets/camping-trip.jpg';
 import getawayImage from '@/assets/getaway-trip.jpg';
 import festivalImage from '@/assets/festival-trip.jpg';
+import lesotho from '@/assets/Lesotho-Afriski.jfif';
 
 const TripsSection = () => {
   const trips = [
     {
       title: 'Camping Trips',
       description: 'Experience the great outdoors with guided camping adventures. From cozy campfires to stargazing nights.',
-      image: campingImage,
+      image: lesotho,
       icon: Tent,
       gradient: 'from-primary to-earth',
     },

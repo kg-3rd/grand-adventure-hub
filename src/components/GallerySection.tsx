@@ -62,7 +62,7 @@ const GallerySection = () => {
   };
 
   return (
-    <section id="gallery" className="py-32 bg-background">
+    <section id="gallery" className="py-32 bg-muted/20 border-t border-border/20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
@@ -91,20 +91,10 @@ const GallerySection = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <span className="inline-block px-3 py-1 bg-primary/20 backdrop-blur-sm text-primary text-sm font-medium rounded-full mb-2">
-                      {image.category}
-                    </span>
-                    <p className="text-white font-medium text-lg">
-                      {image.alt}
-                    </p>
-                  </div>
-                </div>
+                {/* Overlay text removed as requested */}
 
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-[2px]"></div>
+                {/* Hover Effect (removed blur to keep image sharp) */}
+                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </div>
           ))}
@@ -112,9 +102,12 @@ const GallerySection = () => {
 
         {/* View More Button */}
         <div className="text-center mt-16">
-          <button className="text-primary hover:text-primary/80 text-lg font-medium tracking-wide uppercase transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
+          <a
+            href="/gallery"
+            className="inline-block text-primary hover:text-primary/80 text-lg font-medium tracking-wide uppercase transition-colors duration-300 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          >
             View More Adventures
-          </button>
+          </a>
         </div>
       </div>
 

@@ -49,7 +49,7 @@ const ReviewsSection = () => {
   }, [reviews.length]);
 
   return (
-    <section id="reviews" className="py-32 bg-gradient-cinematic relative overflow-hidden">
+    <section id="reviews" className="py-32 bg-gradient-cinematic relative overflow-hidden border-t border-border/20">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary))_0%,transparent_50%)]"></div>
@@ -90,28 +90,18 @@ const ReviewsSection = () => {
                       "{review.text}"
                     </blockquote>
                     
-                    {/* Reviewer Info */}
-                    <div className="flex items-center">
-                      <img
-                        src={review.avatar}
-                        alt={review.name}
-                        className="w-16 h-16 rounded-full border-2 border-primary/20 mr-6"
-                      />
-                      <div>
-                        <h4 className="text-xl font-semibold text-foreground mb-1">
-                          {review.name}
-                        </h4>
-                        <p className="text-muted-foreground text-base">
-                          {review.location}
-                        </p>
-                        <div className="flex items-center mt-2">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className="w-4 h-4 fill-primary text-primary mr-1"
-                            />
-                          ))}
-                        </div>
+                    {/* Reviewer Info (avatar and location removed) */}
+                    <div>
+                      <h4 className="text-xl font-semibold text-foreground">
+                        {review.name}
+                      </h4>
+                      <div className="flex items-center mt-2">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-4 h-4 fill-primary text-primary mr-1"
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
