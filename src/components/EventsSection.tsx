@@ -76,9 +76,10 @@ const EventsSection = () => {
     <section id="events" className="py-24 sm:py-28 lg:py-32 bg-background border-t border-border/20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase text-primary/70 mb-2">Upcoming Adventures</h2>
+          {/* <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Upcoming Adventures
-          </h2>
+          </h2> */}
           <p className="mt-3 text-muted-foreground">
             Trips, festivals, and getaways crafted for explorers like you.
           </p>

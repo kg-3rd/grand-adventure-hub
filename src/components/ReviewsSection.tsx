@@ -57,10 +57,13 @@ const ReviewsSection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
+          {/* <p className="text-xs tracking-[0.2em] uppercase text-primary/70 mb-2">Adventure Stories</p> */}
+          <h2 className="text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase text-primary/70 mb-2">Upcoming Adventures</h2>
+
+          {/* <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
             What Our
             <span className="block text-primary"> Adventurers Say</span>
-          </h2>
+          </h2> */}
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
             Real stories from real people who've experienced the magic of GrandHiking adventures
           </p>

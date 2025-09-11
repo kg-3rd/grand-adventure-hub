@@ -30,14 +30,14 @@ const Navigation = () => {
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24 md:h-28 lg:h-32">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="#home" aria-label="GrandHiking Home" className="inline-flex items-center gap-3">
               <img
                 src={tghLogo}
                 alt="GrandHiking logo"
-                className="h-14 md:h-16 w-auto object-contain drop-shadow-md"
+                className="h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-md"
               />
               {/* <h1
                 className={`text-2xl md:text-3xl font-bold transition-colors duration-300 ${

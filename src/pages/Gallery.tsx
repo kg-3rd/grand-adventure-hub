@@ -31,7 +31,7 @@ const GalleryPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      {/* <Navigation /> */}
       <main className="pt-28 pb-24">
         <div className="container mx-auto px-6 mb-6">
           <button

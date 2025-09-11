@@ -65,10 +65,12 @@ const GallerySection = () => {
     <section id="gallery" className="py-32 bg-muted/20 border-t border-border/20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
+          {/* <p className="text-xs tracking-[0.2em] uppercase text-primary/70 mb-2">Adventure Gallery</p> */}
+          <h2 className="text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase text-primary/70 mb-2">Adventure Gallery</h2>
+          {/* <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
             Adventure
             <span className="block text-primary"> Gallery</span>
-          </h2>
+          </h2> */}
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
             Moments captured from our unforgettable journeys together
           </p>

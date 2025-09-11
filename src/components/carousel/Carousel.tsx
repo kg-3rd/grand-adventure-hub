@@ -58,7 +58,7 @@ export default function Carousel({ children, ariaLabel = 'Carousel', className =
     <div className={`relative ${className}`} aria-roledescription="carousel" aria-label={ariaLabel}>
       <div
         ref={trackRef}
-        className="flex overflow-x-auto overflow-y-visible no-scrollbar scroll-smooth snap-x snap-mandatory gap-6 pb-16 pt-12"
+        className="flex overflow-x-auto overflow-y-visible no-scrollbar scroll-smooth snap-x snap-mandatory gap-6 pb-16 pt-12 px-4"
         tabIndex={0}
         onKeyDown={onKeyDown}
         role="group"

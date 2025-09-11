@@ -55,7 +55,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center p-4 sm:p-6">
       {/* Close Button */}
       <Button
         variant="ghost"
@@ -91,7 +91,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
       )}
 
       {/* Image */}
-      <div className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+      <div className="relative max-w-[92vw] sm:max-w-[90vw] max-h-[calc(100vh-120px)] flex items-center justify-center">
         <img
           src={images[currentIndex]}
           alt={`Gallery image ${currentIndex + 1}`}
@@ -99,9 +99,9 @@ export const Lightbox: React.FC<LightboxProps> = ({
         />
       </div>
 
-      {/* Image Counter */}
+      {/* Image Counter (below image, not overlapping) */}
       {images.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+        <div className="mt-4 text-white/80 text-sm bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
           {currentIndex + 1} / {images.length}
         </div>
       )}
