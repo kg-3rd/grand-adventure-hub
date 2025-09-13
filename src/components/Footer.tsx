@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-border/20 pt-8 text-center text-muted-foreground">
-          <p className="font-light">&copy; 2024 GrandHiking Adventures. All rights reserved.</p>
+          <p className="font-light">&copy; 2024 The Grand Hiking and Adventures. All rights reserved.</p>
         </div>
       </div>
     </footer>
