@@ -19,14 +19,32 @@ const Footer = () => {
               Join our community of explorers.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110">
+              <a
+                href="https://www.instagram.com/the_grand_hiking/"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Instagram"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110"
+              >
                 <Instagram size={28} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110">
+              <a
+                href="https://web.facebook.com/TheGrandHikingAndAdventures"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Facebook"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110"
+              >
                 <Facebook size={28} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110">
-                <Mail size={28} />
+              <a
+                href="https://x.com/HikingGrand"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Twitter/X"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110"
+              >
+                <Twitter size={28} />
               </a>
             </div>
           </div>
@@ -48,9 +66,13 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-6 text-lg tracking-wide uppercase">Contact</h4>
             <ul className="space-y-3 text-muted-foreground font-light">
-              <li>email@thegrandhiking.com</li>
-              <li>(+27) 123-4567</li>
-              
+
+              <li>
+                <a href="tel:+27792960795" className="hover:text-primary transition-colors">+27 79 296 0795</a>
+              </li>
+              <li>
+                <a href="tel:+27726955414" className="hover:text-primary transition-colors">+27 72 695 5414</a>
+              </li>
             </ul>
           </div>
         </div>
