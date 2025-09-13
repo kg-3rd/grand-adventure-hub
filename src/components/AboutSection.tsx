@@ -2,7 +2,7 @@ import tghLogo from '@/assets/tgh_logo.png';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-24 bg-muted/20 border-t border-border/20">
+    <section id="about" className="py-24 bg-muted/20 border-t border-border/20 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-20 items-center">

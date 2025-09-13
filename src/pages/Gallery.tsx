@@ -1,28 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Lightbox } from '@/components/ui/lightbox';
-import campingImage from '@/assets/camping-trip.jpg';
-import getawayImage from '@/assets/getaway-trip.jpg';
-import festivalImage from '@/assets/festival-trip.jpg';
-import communityImage1 from '@/assets/community-1.jpg';
-import communityImage2 from '@/assets/community-2.jpg';
-import heroImage from '@/assets/hero-adventure.jpg';
+import { supabase } from '@/lib/supabase';
 
 const GalleryPage = () => {
   const navigate = useNavigate();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const images = [
-    { src: campingImage, alt: 'Camping under the stars', category: 'Camping' },
-    { src: festivalImage, alt: 'Festival adventures', category: 'Festivals' },
-    { src: getawayImage, alt: 'Mountain getaway', category: 'Getaways' },
-    { src: communityImage1, alt: 'Community gathering', category: 'Community' },
-    { src: heroImage, alt: 'Adventure hiking', category: 'Adventure' },
-    { src: communityImage2, alt: 'Group activities', category: 'Community' },
-  ];
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const { data, error } = await supabase.storage
+          .from('gallery')
+          .list(undefined, { limit: 200, sortBy: { column: 'name', order: 'asc' } });
+        if (error) throw error;
+        const files = (data || []).filter((i: any) => /\.(png|jpe?g|webp|gif|svg)$/i.test(i.name));
+        const urls = files.map((i: any) => supabase.storage.from('gallery').getPublicUrl(i.name).data.publicUrl);
+        if (!active) return;
+        setImages(urls);
+        setCurrentImageIndex(0);
+      } catch (e: any) {
+        if (!active) return;
+        setError(e.message || 'Failed to load gallery');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
@@ -36,7 +53,7 @@ const GalleryPage = () => {
         <div className="container mx-auto px-6 mb-6">
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate({ pathname: '/' })}
             className="inline-flex items-center gap-2 text-sm font-medium tracking-wide uppercase text-foreground hover:text-primary transition-colors"
             aria-label="Go back"
           >
@@ -54,40 +71,50 @@ const GalleryPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {images.map((image, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Open ${image.alt}`}
-              onClick={() => openLightbox(index)}
-              className={`group cursor-pointer overflow-hidden rounded-2xl shadow-adventure hover:shadow-cinematic transition-all duration-500 hover:-translate-y-2 text-left ${
-                index % 4 === 0 || index % 4 === 3 ? 'sm:row-span-2' : ''
-              }`}
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* Overlay text removed as requested */}
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </button>
-          ))}
-        </div>
+        {loading && (
+          <p className="text-center text-muted-foreground">Loading gallery…</p>
+        )}
+        {!loading && error && (
+          <p className="text-center text-destructive">{error}</p>
+        )}
+        {!loading && !error && images.length === 0 && (
+          <p className="text-center text-muted-foreground">No gallery images yet.</p>
+        )}
+        {!loading && !error && images.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {images.map((src, index) => (
+              <button
+                key={src + index}
+                type="button"
+                aria-label={`Open gallery image ${index + 1}`}
+                onClick={() => openLightbox(index)}
+                className={`group cursor-pointer overflow-hidden rounded-2xl shadow-adventure hover:shadow-cinematic transition-all duration-500 hover:-translate-y-2 text-left ${
+                  index % 4 === 0 || index % 4 === 3 ? 'sm:row-span-2' : ''
+                }`}
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={src}
+                    alt={`Gallery image ${index + 1}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
   </div>
       </main>
 
       <Lightbox
-        images={images.map((i) => i.src)}
+        images={images}
         currentIndex={currentImageIndex}
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
-        onNext={() => setCurrentImageIndex((p) => (p + 1) % images.length)}
-        onPrev={() => setCurrentImageIndex((p) => (p - 1 + images.length) % images.length)}
+        onNext={() => setCurrentImageIndex((p) => (images.length ? (p + 1) % images.length : 0))}
+        onPrev={() => setCurrentImageIndex((p) => (images.length ? (p - 1 + images.length) % images.length : 0))}
       />
     </div>
   );

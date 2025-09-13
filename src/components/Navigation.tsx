@@ -21,7 +21,7 @@ const Navigation = () => {
     { name: 'Gallery', href: '#gallery' },
     { name: 'Reviews', href: '#reviews' },
     { name: 'Contact', href: '#contact' },
-  ];
+];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
