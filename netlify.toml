@@ -11,3 +11,9 @@
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Headers = "*"
     Access-Control-Allow-Methods = "GET, POST, DELETE, OPTIONS"
+
+# SPA fallback so client routes like /gallery work on refresh/direct link
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
