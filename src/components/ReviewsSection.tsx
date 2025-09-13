@@ -183,7 +183,7 @@ const ReviewsSection = () => {
                     const newItem = data ?? { id: Date.now(), name, rating, comment };
                     setReviews((prev) => [newItem, ...prev]);
                     setCurrentReview(0);
-                    toast.success('Thanks! Your review is visible here and pending approval.');
+                    toast.success('Thanks! Your review was submitted successfully.');
                     setName('');
                     setRating(5);
                     setComment('');
