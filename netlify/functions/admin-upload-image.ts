@@ -20,8 +20,13 @@ const handler: Handler = async (event) => {
       if (!bucket) return { statusCode: 400, body: 'Missing bucket' };
       const { data, error } = await supabase.storage.from(bucket).list(undefined, { limit: 100, sortBy: { column: 'name', order: 'asc' } });
       if (error) throw error;
+      const isImage = (name: string) => /\.(png|jpe?g|webp|gif|svg)$/i.test(name);
+      const isVideo = (name: string) => /\.(mp4|webm|mov|m4v)$/i.test(name);
       const items = (data || [])
-        .filter((i) => i.name !== 'order.json' && /\.(png|jpe?g|webp|gif|svg)$/i.test(i.name))
+        .filter((i) => {
+          if (i.name === 'order.json') return false;
+          return bucket === 'gallery' ? (isImage(i.name) || isVideo(i.name)) : isImage(i.name);
+        })
         .map((i) => ({ name: i.name, url: supabase.storage.from(bucket).getPublicUrl(i.name).data.publicUrl }));
       // Try to read order.json
       let order: string[] | null = null;
@@ -54,12 +59,12 @@ const handler: Handler = async (event) => {
       }
 
       // Default: upload image
-      const { bucket, fileName, fileData, contentType } = body as { bucket: string; fileName: string; fileData: string; contentType?: string };
+  const { bucket, fileName, fileData, contentType } = body as { bucket: string; fileName: string; fileData: string; contentType?: string };
       if (!bucket || !fileName || !fileData) return { statusCode: 400, body: 'Missing parameters' };
       const base64 = fileData.includes(',') ? fileData.split(',')[1] : fileData;
       const buff = Buffer.from(base64, 'base64');
       const path = `${Date.now()}-${fileName}`;
-      const { error: upErr } = await supabase.storage.from(bucket).upload(path, buff, { contentType: contentType || 'application/octet-stream', upsert: false });
+  const { error: upErr } = await supabase.storage.from(bucket).upload(path, buff, { contentType: contentType || 'application/octet-stream', upsert: false });
       if (upErr) throw upErr;
       const { data: publicUrl } = supabase.storage.from(bucket).getPublicUrl(path);
       return { statusCode: 200, body: JSON.stringify({ publicUrl: publicUrl.publicUrl, path }) };
