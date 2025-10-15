@@ -18,9 +18,9 @@ All colors MUST be HSL.
     --popover: 220 15% 10%;
     --popover-foreground: 45 20% 95%;
 
-    /* Golden Primary */
-    --primary: 45 85% 60%;
-    --primary-foreground: 220 15% 8%;
+  /* Neutral Gray Primary */
+  --primary: 0 0% 68%; /* light gray for accent elements */
+  --primary-foreground: 220 15% 8%; /* dark text for solid gray buttons */
 
     /* Dark Secondary */
     --secondary: 220 10% 15%;
@@ -29,9 +29,9 @@ All colors MUST be HSL.
     --muted: 220 10% 18%;
     --muted-foreground: 45 10% 65%;
 
-    /* Adventure Blue Accent */
-    --accent: 205 85% 55%;
-    --accent-foreground: 0 0% 100%;
+  /* Single Accent (matches primary) */
+  --accent: 0 0% 72%;
+  --accent-foreground: 220 15% 8%;
 
     /* Festival Orange */
     --festival: 25 95% 65%;
@@ -46,19 +46,19 @@ All colors MUST be HSL.
 
     --border: 220 10% 20%;
     --input: 220 10% 18%;
-    --ring: 45 85% 60%;
+  --ring: 0 0% 68%;
 
     /* Cinematic Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(220 15% 15%) 100%);
     --gradient-cinematic: linear-gradient(180deg, hsl(220 15% 5%) 0%, hsl(220 15% 12%) 100%);
-    --gradient-golden: linear-gradient(135deg, hsl(45 85% 60%) 0%, hsl(25 95% 65%) 100%);
+  --gradient-golden: linear-gradient(135deg, hsl(0 0% 65%) 0%, hsl(0 0% 50%) 100%);
     --gradient-overlay: linear-gradient(0deg, hsl(220 15% 8% / 0.8) 0%, hsl(220 15% 8% / 0.3) 50%, hsl(220 15% 8% / 0.7) 100%);
 
     /* Premium Shadows */
     --shadow-adventure: 0 25px 80px -15px hsl(220 15% 5% / 0.6);
     --shadow-festival: 0 20px 60px -10px hsl(25 95% 65% / 0.3);
     --shadow-cinematic: 0 30px 100px -20px hsl(220 15% 3% / 0.8);
-    --shadow-golden: 0 15px 50px -10px hsl(45 85% 60% / 0.4);
+  --shadow-golden: 0 15px 50px -10px hsl(0 0% 65% / 0.4);
 
     /* Premium Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -68,12 +68,12 @@ All colors MUST be HSL.
 
     --sidebar-background: 45 20% 95%;
     --sidebar-foreground: 140 25% 15%;
-    --sidebar-primary: 140 45% 25%;
+  --sidebar-primary: 0 0% 30%;
     --sidebar-primary-foreground: 45 20% 97%;
     --sidebar-accent: 45 25% 88%;
     --sidebar-accent-foreground: 140 25% 15%;
     --sidebar-border: 45 25% 85%;
-    --sidebar-ring: 140 45% 25%;
+  --sidebar-ring: 0 0% 30%;
   }
 
   .dark {
@@ -87,8 +87,8 @@ All colors MUST be HSL.
     --popover: 220 15% 12%;
     --popover-foreground: 45 20% 98%;
 
-    --primary: 45 90% 65%;
-    --primary-foreground: 220 15% 8%;
+  --primary: 0 0% 75%;
+  --primary-foreground: 220 15% 10%;
 
     --secondary: 220 10% 18%;
     --secondary-foreground: 45 20% 95%;
@@ -96,8 +96,8 @@ All colors MUST be HSL.
     --muted: 220 10% 22%;
     --muted-foreground: 45 10% 70%;
 
-    --accent: 205 85% 60%;
-    --accent-foreground: 0 0% 100%;
+  --accent: 0 0% 78%;
+  --accent-foreground: 220 15% 10%;
 
     --festival: 25 95% 70%;
     --festival-foreground: 0 0% 100%;
@@ -110,16 +110,16 @@ All colors MUST be HSL.
 
     --border: 220 10% 25%;
     --input: 220 10% 22%;
-    --ring: 45 85% 60%;
+  --ring: 0 0% 75%;
 
     --sidebar-background: 220 15% 5%;
     --sidebar-foreground: 45 20% 90%;
-    --sidebar-primary: 45 85% 60%;
-    --sidebar-primary-foreground: 220 15% 8%;
+  --sidebar-primary: 0 0% 25%;
+  --sidebar-primary-foreground: 0 0% 90%;
     --sidebar-accent: 220 10% 15%;
     --sidebar-accent-foreground: 45 20% 90%;
     --sidebar-border: 220 10% 15%;
-    --sidebar-ring: 45 85% 60%;
+  --sidebar-ring: 0 0% 25%;
   }
 }
 

@@ -84,9 +84,15 @@ const GallerySection = () => {
     };
   }, [loadGallery]);
 
-  const openLightbox = (index: number) => {
-    setCurrentImageIndex(index);
-    setLightboxOpen(true);
+  // Derived list of only image (non-video) media for lightbox operations
+  const filteredImages = images.filter(i => !/\.mp4|\.webm|\.mov|\.m4v$/i.test(i.name));
+
+  const openLightbox = (name: string) => {
+    const idx = filteredImages.findIndex(i => i.name === name);
+    if (idx >= 0) {
+      setCurrentImageIndex(idx);
+      setLightboxOpen(true);
+    }
   };
 
   // Pause other videos when one starts
@@ -111,11 +117,11 @@ const GallerySection = () => {
   };
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (images.length ? (prev + 1) % images.length : 0));
+    setCurrentImageIndex((prev) => (filteredImages.length ? (prev + 1) % filteredImages.length : 0));
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (images.length ? (prev - 1 + images.length) % images.length : 0));
+    setCurrentImageIndex((prev) => (filteredImages.length ? (prev - 1 + filteredImages.length) % filteredImages.length : 0));
   };
 
   return (
@@ -149,12 +155,12 @@ const GallerySection = () => {
           <div className="max-w-7xl mx-auto">
             {/* Uniform tiles using fixed aspect ratio */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {images.map((img, index) => (
+        {images.map((img) => (
                 <div
-                  key={img.name + index}
-                  className="group text-left cursor-pointer"
-                  aria-label={`Open gallery media ${index + 1}`}
-                  onClick={() => { if (!/\.mp4|\.webm|\.mov|\.m4v$/i.test(img.name)) openLightbox(index); }}
+          key={img.name}
+          className="group text-left cursor-pointer"
+          aria-label={`Open gallery media ${img.name}`}
+          onClick={() => { if (!/\.mp4|\.webm|\.mov|\.m4v$/i.test(img.name)) openLightbox(img.name); }}
                 >
                   <div className="overflow-hidden rounded-2xl shadow-adventure hover:shadow-cinematic transition-all duration-500">
                     <AspectRatio ratio={4/3}>
@@ -193,7 +199,7 @@ const GallerySection = () => {
                       ) : (
                         <img
                           src={img.url}
-                          alt={`Gallery image ${index + 1}`}
+                          alt={img.name}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                           loading="lazy"
                         />
@@ -219,7 +225,7 @@ const GallerySection = () => {
 
       {/* Lightbox */}
       <Lightbox
-        images={images.filter(i => !/\.mp4|\.webm|\.mov|\.m4v$/i.test(i.name)).map(i => i.url)}
+        images={filteredImages.map(i => i.url)}
         currentIndex={currentImageIndex}
         isOpen={lightboxOpen}
         onClose={closeLightbox}
