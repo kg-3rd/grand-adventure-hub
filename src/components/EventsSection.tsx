@@ -11,6 +11,7 @@ const EventsSection = () => {
   const [posters, setPosters] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [eventsEntered, setEventsEntered] = useState(false);
 
   // Helper to apply saved order.json if present
   const applyOrder = (items: { name: string; url: string }[], order?: string[]) => {
@@ -86,10 +87,18 @@ const EventsSection = () => {
   const prevPoster = () =>
     setCurrentPosterIndex((prev) => (posters.length ? (prev - 1 + posters.length) % posters.length : 0));
 
+  useEffect(() => {
+    if (!loading && !error && posters.length > 0) {
+      setEventsEntered(true);
+    } else {
+      setEventsEntered(false);
+    }
+  }, [loading, error, posters.length]);
+
   return (
   <section id="events" className="py-24 sm:py-28 lg:py-32 bg-background border-t border-border/20 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+       <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold tracking-[0.2em] uppercase text-primary/70 mb-2">Upcoming Adventures</h2>
           {/* <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Upcoming Adventures
@@ -100,7 +109,18 @@ const EventsSection = () => {
         </div>
 
         {loading && (
-          <div className="text-center text-sm text-muted-foreground">Loading posters…</div>
+          <div className="space-y-6">
+            <div className="flex gap-4 overflow-hidden">
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="w-full sm:w-1/2 lg:w-1/3 shrink-0 rounded-3xl border border-border/20 bg-muted/30 p-4 shadow-inner animate-pulse"
+                >
+                  <div className="aspect-[2/3] w-full rounded-2xl bg-muted/50" />
+                </div>
+              ))}
+            </div>
+          </div>
         )}
         {!loading && error && (
           <div className="text-center text-sm text-destructive">{error}</div>
@@ -110,32 +130,42 @@ const EventsSection = () => {
         )}
 
         {!loading && !error && posters.length > 0 && (
-          <Carousel>
-            {posters.map((url, index) => (
-              <CarouselItem key={url + index}>
-                <button
-                  type="button"
-                  aria-label={`Open event poster ${index + 1}`}
-                  className="group w-full text-left cursor-pointer"
-                  onClick={() => openPosterLightbox(index)}
-                >
-                  <div className="relative overflow-visible bg-card/20 backdrop-blur-sm p-4 rounded-3xl shadow-cinematic hover:shadow-golden border border-border/20">
-                    <div className="relative overflow-hidden rounded-2xl aspect-[2/3] transition-shadow duration-500">
-                      <img
-                        src={url}
-                        alt={`Event poster ${index + 1}`}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute top-4 right-4 bg-primary/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        Click to View
+          <div className={`space-y-6 transition-all duration-500 ${eventsEntered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            <Carousel>
+              {posters.map((url, index) => (
+                <CarouselItem key={url + index}>
+                  <button
+                    type="button"
+                    aria-label={`Open event poster ${index + 1}`}
+                    className="group block w-full cursor-pointer"
+                    onClick={() => openPosterLightbox(index)}
+                  >
+                    <div className="relative h-full overflow-visible rounded-3xl border border-border/20 bg-foreground/5 p-4 shadow-adventure transition-all duration-500 hover:-translate-y-1 hover:shadow-cinematic">
+                      <div className="relative overflow-hidden rounded-2xl aspect-[2/3] transition-shadow duration-500">
+                        <img
+                          src={url}
+                          alt={`Event poster ${index + 1}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                       
+                        <div className="md:hidden pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="absolute bottom-3 right-3 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold text-primary shadow-sm">
+                            Tap to view
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-              </CarouselItem>
-            ))}
-          </Carousel>
+                  </button>
+                </CarouselItem>
+              ))}
+            </Carousel>
+            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+              <span className="h-[1px] w-8 bg-border" />
+              <span>Swipe to see more</span>
+              <span className="h-[1px] w-8 bg-border" />
+            </div>
+          </div>
         )}
 
         <Lightbox

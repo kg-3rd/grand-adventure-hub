@@ -12,6 +12,7 @@ const GallerySection = () => {
   const [error, setError] = useState<string | null>(null);
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const [playingId, setPlayingId] = useState<string | null>(null);
+  const [galleryEntered, setGalleryEntered] = useState(false);
 
   // Helper to apply saved order from order.json if present
   const applyOrder = (items: GMedia[], order?: string[]) => {
@@ -85,7 +86,11 @@ const GallerySection = () => {
   }, [loadGallery]);
 
   // Derived list of only image (non-video) media for lightbox operations
-  const filteredImages = images.filter(i => !/\.mp4|\.webm|\.mov|\.m4v$/i.test(i.name));
+  const previewItems = images.slice(0, 8);
+  const filteredImages = previewItems.filter(i => !/\.mp4|\.webm|\.mov|\.m4v$/i.test(i.name));
+
+  const formatLabel = (name: string) =>
+    name.replace(/\.[^/.]+$/, '').replace(/[-_]+/g, ' ').trim();
 
   const openLightbox = (name: string) => {
     const idx = filteredImages.findIndex(i => i.name === name);
@@ -124,6 +129,14 @@ const GallerySection = () => {
     setCurrentImageIndex((prev) => (filteredImages.length ? (prev - 1 + filteredImages.length) % filteredImages.length : 0));
   };
 
+  useEffect(() => {
+    if (!loading && !error && previewItems.length > 0) {
+      setGalleryEntered(true);
+    } else {
+      setGalleryEntered(false);
+    }
+  }, [loading, error, previewItems.length]);
+
   return (
   <section id="gallery" className="py-32 bg-muted/20 border-t border-border/20 scroll-mt-24 md:scroll-mt-28 lg:scroll-mt-32">
       <div className="container mx-auto px-6">
@@ -141,7 +154,15 @@ const GallerySection = () => {
 
         {/* Loading/Error/Empty States */}
         {loading && (
-          <div className="text-center text-sm text-muted-foreground">Loading gallery…</div>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-flow-col auto-cols-[78%] sm:auto-cols-[55%] gap-4 overflow-hidden pb-6 -mx-6 px-6 sm:px-0 lg:grid-flow-row lg:grid-cols-4 lg:grid-rows-2 lg:gap-6 animate-pulse">
+              {Array.from({ length: 6 }).map((_, idx) => (
+                <div key={idx} className="h-full w-full rounded-3xl bg-muted/40">
+                  <div className="aspect-[4/3] w-full rounded-3xl bg-muted/60" />
+                </div>
+              ))}
+            </div>
+          </div>
         )}
         {!loading && error && (
           <div className="text-center text-sm text-destructive">{error}</div>
@@ -152,24 +173,24 @@ const GallerySection = () => {
 
         {/* Masonry Grid */}
         {!loading && !error && images.length > 0 && (
-          <div className="max-w-7xl mx-auto">
-            {/* Uniform tiles using fixed aspect ratio */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {images.map((img) => (
+          <div className={`max-w-7xl mx-auto transition-all duration-500 ${galleryEntered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            {/* Responsive collage: swipeable strip on mobile, airy 2-row grid on desktop */}
+            <div className="grid grid-flow-col auto-cols-[78%] sm:auto-cols-[55%] gap-4 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6 sm:px-0 lg:grid-flow-row lg:grid-cols-4 lg:grid-rows-2 lg:overflow-visible lg:gap-6 transition-all duration-500">
+        {previewItems.map((img) => (
                 <div
           key={img.name}
-          className="group text-left cursor-pointer"
+          className="group relative h-full snap-start text-left cursor-pointer"
           aria-label={`Open gallery media ${img.name}`}
           onClick={() => { if (!/\.mp4|\.webm|\.mov|\.m4v$/i.test(img.name)) openLightbox(img.name); }}
                 >
-                  <div className="overflow-hidden rounded-2xl shadow-adventure hover:shadow-cinematic transition-all duration-500">
+                  <div className="relative overflow-hidden rounded-3xl bg-foreground/5 ring-1 ring-border/30 shadow-adventure transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-cinematic">
                     <AspectRatio ratio={4/3}>
                       {/\.mp4|\.webm|\.mov|\.m4v$/i.test(img.name) ? (
                         <div className="relative w-full h-full bg-black">
                           <video
                             ref={(el) => { videoRefs.current[img.name] = el; }}
                             src={img.url}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                             playsInline
                             preload="metadata"
                             controls={playingId === img.name}
@@ -200,10 +221,15 @@ const GallerySection = () => {
                         <img
                           src={img.url}
                           alt={img.name}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                           loading="lazy"
                         />
                       )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      {/* <div className="pointer-events-none absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-background/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm backdrop-blur-sm">
+                        <span className="w-2 h-2 rounded-full bg-primary" />
+                        <span>{formatLabel(img.name)}</span>
+                      </div> */}
                     </AspectRatio>
                   </div>
                 </div>

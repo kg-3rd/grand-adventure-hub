@@ -93,6 +93,9 @@ const GalleryPage = () => {
 
   const filteredImages = images.filter(i => !/\.mp4|\.webm|\.mov|\.m4v$/i.test(i.name));
 
+  const formatLabel = (name: string) =>
+    name.replace(/\.[^/.]+$/, '').replace(/[-_]+/g, ' ').trim();
+
   const openLightbox = (name: string) => {
     const idx = filteredImages.findIndex(i => i.name === name);
     if (idx >= 0) {
@@ -151,22 +154,21 @@ const GalleryPage = () => {
         )}
         {!loading && !error && images.length > 0 && (
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {images.map((img) => (
                 <div
           key={img.name}
           aria-label={`Open gallery media ${img.name}`}
-                  className="group text-left w-full cursor-pointer"
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-foreground/5 ring-1 ring-border/30 shadow-adventure transition-all duration-500 hover:-translate-y-1 hover:shadow-cinematic"
           onClick={() => { if (!/\.mp4|\.webm|\.mov|\.m4v$/i.test(img.name)) openLightbox(img.name); }}
                 >
-                  <div className="overflow-hidden rounded-2xl shadow-adventure hover:shadow-cinematic transition-all duration-500">
                     <AspectRatio ratio={4/3}>
                       {/\.mp4|\.webm|\.mov|\.m4v$/i.test(img.name) ? (
                         <div className="relative w-full h-full bg-black">
                           <video
                             ref={(el) => { videoRefs.current[img.name] = el; }}
                             src={img.url}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                             playsInline
                             preload="metadata"
                             controls={playingId === img.name}
@@ -198,11 +200,15 @@ const GalleryPage = () => {
                           src={img.url}
                           alt={img.name}
                           loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                         />
                       )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      {/* <div className="pointer-events-none absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-background/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm backdrop-blur-sm">
+                        <span className="w-2 h-2 rounded-full bg-primary" />
+                        <span>{formatLabel(img.name)}</span>
+                      </div> */}
                     </AspectRatio>
-                  </div>
                 </div>
               ))}
             </div>
