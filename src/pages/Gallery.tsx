@@ -120,9 +120,9 @@ const GalleryPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* <Navigation /> */}
+      <Navigation />
       <main className="pt-28 pb-24">
-        <div className="container mx-auto px-6 mb-6">
+        {/* <div className="container mx-auto px-6 mb-6">
           <button
             type="button"
             onClick={() => navigate({ pathname: '/' })}
@@ -131,7 +131,7 @@ const GalleryPage = () => {
           >
             <ChevronLeft className="w-5 h-5" /> Back
           </button>
-        </div>
+        </div> */}
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
