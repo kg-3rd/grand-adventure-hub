@@ -1,5 +1,22 @@
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Facebook } from 'lucide-react';
 import tghLogo from '@/assets/tgh_logo.png';
+
+// Local TikTok icon (lucide-react does not provide a TikTok brand icon)
+const TikTokIcon = ({ size = 28 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M15.5 3c.38 1.72 1.52 3.2 3.1 4.02 1.02.53 2.17.78 3.32.75v3.04c-1.83-.1-3.61-.66-5.1-1.62v5.9c0 3.67-2.97 6.64-6.64 6.64S3.54 18.76 3.54 15.1c0-3.67 2.97-6.64 6.64-6.64.41 0 .81.04 1.2.11v3.28c-.38-.12-.79-.19-1.2-.19-2.01 0-3.64 1.63-3.64 3.64s1.63 3.64 3.64 3.64 3.64-1.63 3.64-3.64V3h3.18Z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
 const Footer = () => {
   return (
@@ -38,13 +55,13 @@ const Footer = () => {
                 <Facebook size={28} />
               </a>
               <a
-                href="https://x.com/HikingGrand"
+                href="https://www.tiktok.com/@the_grand_hiking?_r=1&_t=ZS-92moQeKuaEJ"
                 target="_blank"
                 rel="noreferrer noopener"
-                aria-label="Twitter/X"
+                aria-label="TikTok"
                 className="text-muted-foreground hover:text-primary transition-colors duration-300 transform hover:scale-110"
               >
-                <Twitter size={28} />
+                <TikTokIcon size={28} />
               </a>
             </div>
           </div>
