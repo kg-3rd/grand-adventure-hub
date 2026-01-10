@@ -87,7 +87,7 @@ const ReviewsSection = () => {
         {/* Review Carousel */}
         <div className="relative max-w-6xl mx-auto">
           {loading ? (
-            <p className="text-center text-muted-foreground">Loading reviews…</p>
+            <p className="text-center text-muted-foreground">Loading reviews...</p>
           ) : error ? (
             <p className="text-center text-destructive">{error}</p>
           ) : reviews.length === 0 ? (
@@ -96,25 +96,25 @@ const ReviewsSection = () => {
             <>
               <Card className="bg-card/50 backdrop-blur-xl border-border/20 shadow-cinematic overflow-hidden">
                 <CardContent className="p-0">
-                  <div className="relative h-96 md:h-80 flex items-center">
+                  <div className="relative min-h-[22rem] md:h-80 md:flex md:items-center">
                     {reviews.map((review, index) => {
                       const stars = clampStars(review.rating);
                       return (
                         <div
                           key={review.id}
-                          className={`absolute inset-0 p-12 md:p-16 flex flex-col justify-center transition-all duration-1000 ${
+                          className={`p-6 sm:p-8 md:p-16 transition-all duration-1000 md:absolute md:inset-0 flex-col justify-start md:justify-center ${
                             index === currentReview
-                              ? 'opacity-100 translate-x-0'
-                              : index < currentReview
-                              ? 'opacity-0 -translate-x-full'
-                              : 'opacity-0 translate-x-full'
+                              ? 'flex opacity-100 translate-x-0'
+                              : `hidden md:flex opacity-0 ${
+                                  index < currentReview ? '-translate-x-full' : 'translate-x-full'
+                                }`
                           }`}
                         >
                           {/* Quote Icon */}
-                          <Quote className="text-primary w-12 h-12 mb-8 opacity-30" />
+                          <Quote className="text-primary w-10 h-10 md:w-12 md:h-12 mb-6 md:mb-8 opacity-30" />
                           
                           {/* Review Text */}
-                          <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-relaxed mb-8 italic">
+                          <blockquote className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-relaxed mb-6 md:mb-8 italic">
                             "{review.comment}"
                           </blockquote>
                           
@@ -223,9 +223,8 @@ const ReviewsSection = () => {
                   rows={4}
                 />
                 <Button type="submit" className="w-full" disabled={submitting}>
-                  {submitting ? 'Submitting…' : 'Submit'}
+                  {submitting ? 'Submitting...' : 'Submit'}
                 </Button>
-              
               </form>
             </CardContent>
           </Card>
@@ -236,3 +235,4 @@ const ReviewsSection = () => {
 };
 
 export default ReviewsSection;
+
